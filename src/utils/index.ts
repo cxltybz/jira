@@ -32,3 +32,28 @@ export const useDebounce = <V>(value: V, delay?: number) => {
   }, [value, delay]);
   return debounceValue;
 };
+
+export interface UseList {
+  name: string;
+  age: number;
+}
+// interface ArrayProps {
+//   value: UseList[];
+//   clear: () => [];
+//   removeIndex: (i: number) => UseList[];
+//   add: (user: UseList) => UseList[];
+// }
+
+export const useArray = (arrayProps: UseList[]) => {
+  // hello，请把作业写在这里吧，写完记得再对照作业要求检查一下
+  let value: UseList[];
+  value = arrayProps;
+  const clear = () => value.splice(0, value.length);
+  const removeIndex = (i: number) => value.splice(i, 1);
+  const add = (user: UseList) => {
+    console.log(user);
+    value.push(user);
+    console.log(value);
+  };
+  return { value, clear, removeIndex, add };
+};

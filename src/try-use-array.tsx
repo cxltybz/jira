@@ -1,5 +1,5 @@
-import { UseList, useArray, useMount } from "utils";
-import React, { useState } from "react";
+import { useArray, useMount } from "utils";
+import React from "react";
 
 export const TsReactTest = () => {
   const persons: { name: string; age: number }[] = [
@@ -7,7 +7,6 @@ export const TsReactTest = () => {
     { name: "ma", age: 22 },
   ];
   const { value, clear, removeIndex, add } = useArray(persons);
-  console.log(value, 222);
 
   useMount(() => {
     // 期待这里报错：Property 'notExist' does not exist on type '{ name: string; age: number; }[]'.
@@ -27,7 +26,7 @@ export const TsReactTest = () => {
       <button style={{ marginBottom: "50px" }} onClick={() => clear()}>
         clear
       </button>
-      {value.map((person: UseList, index: number) => (
+      {value.map((person, index) => (
         <div style={{ marginBottom: "30px" }} key={index}>
           <span style={{ color: "red" }}>{index}</span>
           <span>{person.name}</span>

@@ -37,23 +37,18 @@ export interface UseList {
   name: string;
   age: number;
 }
-// interface ArrayProps {
-//   value: UseList[];
-//   clear: () => [];
-//   removeIndex: (i: number) => UseList[];
-//   add: (user: UseList) => UseList[];
-// }
 
-export const useArray = (arrayProps: UseList[]) => {
-  // hello，请把作业写在这里吧，写完记得再对照作业要求检查一下
-  let value: UseList[];
-  value = arrayProps;
-  const clear = () => value.splice(0, value.length);
-  const removeIndex = (i: number) => value.splice(i, 1);
-  const add = (user: UseList) => {
-    console.log(user);
-    value.push(user);
-    console.log(value);
+export const useArray = <T>(initialArray: T[]) => {
+  const [value, setValue] = useState(initialArray);
+  return {
+    value,
+    setValue,
+    add: (item: T) => setValue([...value, item]),
+    clear: () => setValue([]),
+    removeIndex: (index: number) => {
+      const copy = [...value];
+      copy.splice(index, 1);
+      setValue(copy);
+    },
   };
-  return { value, clear, removeIndex, add };
 };
